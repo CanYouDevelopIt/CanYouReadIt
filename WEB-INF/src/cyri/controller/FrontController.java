@@ -1,9 +1,9 @@
 package cyri.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +13,7 @@ import cyri.context.Context;
 import cyri.dispatcher.Dispatcher;
 import cyri.dispatcher.Rewriter;
 
-public class FrontController implements IFrontController {
+public class FrontController extends HttpServlet implements IFrontController {
 
 	private static final String CONTENT_TYPE = "text/html";
 

@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>FrontController</servlet-name>
-        <servlet-class>cyri.FrontController</servlet-class>
+        <servlet-class>cyri.controller.FrontController</servlet-class>
     </servlet>
 
     <servlet-mapping>
