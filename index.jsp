@@ -7,8 +7,6 @@
 <title>Again Test</title>
 </head>
 <body>
-kvhvbjbhkhb
-
 	<%="Web Frame Work ==> " + new java.util.Date()%>
 </body>
 </html>
