@@ -12,6 +12,7 @@ import org.esgi.web.framework.core.interfaces.IFrontController;
 import cyri.context.Context;
 import cyri.dispatcher.Dispatcher;
 import cyri.dispatcher.Rewriter;
+import cyri.dispatcher.RewriterRule;
 
 public class FrontController extends HttpServlet implements IFrontController {
 
@@ -27,6 +28,9 @@ public class FrontController extends HttpServlet implements IFrontController {
 		dispatcher = new Dispatcher();
 		rewriter = new Rewriter();
 
+		// New rule -- Pattern is a+ -- Related ActionClass is ActionA
+				 rewriter.addRule(new RewriterRule("POST", URIroot + "a+",
+				 "cyri.action.Action"));
 	}
 
 	@Override
