@@ -8,9 +8,9 @@ public class DBManga {
 	
 	private DBManga()
 	{
-		listManga.add(new Manga("One Piece"));
-		listManga.add(new Manga("Naruto"));
-		listManga.add(new Manga("Bleach"));		
+		listManga.add(new Manga("One Piece",784));
+		listManga.add(new Manga("Naruto",700));
+		listManga.add(new Manga("Bleach",624));		
 	}
 	
 	public ArrayList<Manga> getListManga() {
