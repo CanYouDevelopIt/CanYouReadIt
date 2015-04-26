@@ -1,10 +1,48 @@
 package cyri.action;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.esgi.web.framework.action.interfaces.IAction;
 import org.esgi.web.framework.context.interfaces.IContext;
 
-public class ActionAfficherChapitres implements IAction {
+import cyri.model.DBManga;
+import cyri.model.Manga;
 
+public class ActionAfficherChapitres implements IAction {
+	
+	@Override
+	public void proceed(IContext context) {
+		
+		DBManga instance = DBManga.getInstance();
+		
+		String nomManga = "";
+		String [] arrayManga = (String[]) context.getParameter("nom");
+		if(arrayManga != null){
+			for(String s : arrayManga)
+				nomManga = s;					
+		}
+		
+		try {
+			context._getResponse().setContentType("text/html");
+			context._getResponse().getOutputStream()
+					.println("<html><head></head><body>");
+			context._getResponse().getOutputStream()
+			.println("<h2>" + nomManga + "</h2>");
+			context._getResponse().getOutputStream()
+					.println("<h3>Veuillez choisir un chapitre : </h3>");
+			context._getResponse().getOutputStream()
+			.println("<ul>");
+			
+			context._getResponse().getOutputStream()
+			.println("</ul>");
+			
+			context._getResponse().getOutputStream().println("</body>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public int setPriority(int priority) {
 		// TODO Auto-generated method stub
@@ -33,12 +71,6 @@ public class ActionAfficherChapitres implements IAction {
 	public boolean hasCredential(String[] roles) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void proceed(IContext context) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

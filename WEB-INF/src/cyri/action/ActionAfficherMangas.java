@@ -21,7 +21,9 @@ public class ActionAfficherMangas implements IAction {
 			context._getResponse().getOutputStream()
 					.println("<html><head></head><body>");
 			context._getResponse().getOutputStream()
-					.println("<h1>Veuillez choisir un manga : </h1>");
+			.println("<h2>Can You Read It ?</h2>");
+			context._getResponse().getOutputStream()
+					.println("<h3>Veuillez choisir un manga : </h3>");
 			
 			context._getResponse().getOutputStream()
 			.println("<ul>");
@@ -31,7 +33,7 @@ public class ActionAfficherMangas implements IAction {
 			{		
 				context._getResponse().getOutputStream()
 				.println("<li>");
-					context._getResponse().getOutputStream().println("<a href=\""+ m.getNom() +"\">" + m.getNom() + "</a>");
+					context._getResponse().getOutputStream().println("<a href=\"/CanYouReadIt/manga&nom="+ m.getNom() +"\">" + m.getNom() + "</a>");
 				context._getResponse().getOutputStream()
 				.println("</li>");
 			}
