@@ -20,6 +20,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/httpcore-nio-4.4.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/json-20141113.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jeremy/Documents/Git/CanYouReadIt/WEB-INF/lib/json-20141113.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
