@@ -1,6 +1,5 @@
 package cyri.velocity;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,11 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.esgi.web.framework.action.interfaces.IAction;
 import org.esgi.web.framework.context.interfaces.IContext;
+
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 
 public class ActionVelocity implements IAction {
 
@@ -77,6 +81,7 @@ public class ActionVelocity implements IAction {
 			System.out.println("There is shit over here ==> "+e.getMessage());
 			e.printStackTrace();
 		}
+		
 	}
 
 }

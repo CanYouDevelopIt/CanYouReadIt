@@ -33,7 +33,7 @@ public class ActionAfficherMangas implements IAction {
 			{		
 				context._getResponse().getOutputStream()
 				.println("<li>");
-					context._getResponse().getOutputStream().println("<a href=\"/CanYouReadIt/manga&nom="+ m.getNom() +"\">" + m.getNom() + "</a>");
+					context._getResponse().getOutputStream().println("<a href=\"/CanYouReadIt/manga?nom="+ m.getNom() +"\">" + m.getNom() + "</a>");
 				context._getResponse().getOutputStream()
 				.println("</li>");
 			}
