@@ -1,5 +1,9 @@
 package cyri.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -11,11 +15,13 @@ public class Manga {
 	private String nom;
 	private String nom_api;
 	private int nbChapitres;
-	private String auteur;
+	private String image;
+	private List<Chapitre> chapitres;
 
 	public Manga(String _nom) {
 		nom = _nom;
 		nom_api = _nom.toLowerCase().replace(" ", "-");
+		chapitres = new ArrayList<Chapitre>();
 		executer();
 	}
 
@@ -26,7 +32,16 @@ public class Manga {
 	public int getNbChapitres() {
 		return nbChapitres;
 	}
-
+	
+	public Chapitre chargerChapitre(String idChapitre){
+		Chapitre c = new Chapitre(nom_api,idChapitre);
+		
+		if(c != null)
+			chapitres.add(c);
+		
+		return c;
+	}
+	
 	public void executer() {
 		
 		try {
@@ -39,10 +54,8 @@ public class Manga {
 			JSONObject obj = new JSONObject(response.getBody());
 
 			String author = (String) obj.get("author").toString();
-			//String cover = (String) obj.getJSONObject("cover").get("cover");
-			//String yearOfRelease = obj.getString("yearOfRelease");
-			
-			System.out.println(author);
+			image = (String) obj.get("cover").toString();
+			nbChapitres = obj.getJSONArray("chapters").length();			
 			
 		} catch (UnirestException e) {
 			e.printStackTrace();

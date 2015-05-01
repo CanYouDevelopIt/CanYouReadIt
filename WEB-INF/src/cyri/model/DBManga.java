@@ -8,13 +8,22 @@ public class DBManga {
 	
 	private DBManga()
 	{
+		listManga.add(new Manga("Shingeki No Kyojin"));
 		listManga.add(new Manga("One Piece"));
 		listManga.add(new Manga("Naruto"));
-		listManga.add(new Manga("Bleach"));		
+		listManga.add(new Manga("Bleach"));
 	}
 	
 	public ArrayList<Manga> getListManga() {
 		return listManga;
+	}
+	
+	public Manga getManga(String nomManga){
+		for(Manga m: listManga){
+			if(m.getNom().equals(nomManga))
+				return m;
+		}
+		return null;
 	}
 	
 	private static DBManga INSTANCE;

@@ -23,20 +23,33 @@ public class ActionAfficherChapitres implements IAction {
 				nomManga = s;					
 		}
 		
+		Manga m = instance.getManga(nomManga);
+		
 		try {
 			context._getResponse().setContentType("text/html");
 			context._getResponse().getOutputStream()
 					.println("<html><head></head><body>");
-			context._getResponse().getOutputStream()
-			.println("<h2>" + nomManga + "</h2>");
-			context._getResponse().getOutputStream()
-					.println("<h3>Veuillez choisir un chapitre : </h3>");
-			context._getResponse().getOutputStream()
-			.println("<ul>");
 			
-			context._getResponse().getOutputStream()
-			.println("</ul>");
-			
+			if(m != null){
+				context._getResponse().getOutputStream()
+				.println("<h2>" + m.getNom() + "</h2>");
+				context._getResponse().getOutputStream()
+						.println("<h3>Veuillez choisir un chapitre : </h3>");
+				context._getResponse().getOutputStream()
+				.println("<ul>");
+					
+					for(int i = m.getNbChapitres(); i > 0; i--){
+						context._getResponse().getOutputStream()
+						.println("<li>");
+						context._getResponse().getOutputStream().println("<a href=\"/CanYouReadIt/chapitre?nom="+ m.getNom() + "&chapitre=" + i + "\">" + "Chapitre " + i + "</a>");
+						context._getResponse().getOutputStream()
+						.println("</li>");
+					}
+				
+				context._getResponse().getOutputStream()
+				.println("</ul>");
+			}
+
 			context._getResponse().getOutputStream().println("</body>");
 		} catch (IOException e) {
 			e.printStackTrace();
