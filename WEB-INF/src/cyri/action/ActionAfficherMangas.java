@@ -1,8 +1,16 @@
 package cyri.action;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.context.AbstractContext;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.esgi.web.framework.action.interfaces.IAction;
 import org.esgi.web.framework.context.interfaces.IContext;
 
@@ -16,33 +24,31 @@ public class ActionAfficherMangas implements IAction {
 		
 		DBManga instance = DBManga.getInstance();
 		
-		try {
-			context._getResponse().setContentType("text/html");
-			context._getResponse().getOutputStream()
-					.println("<html><head></head><body>");
-			context._getResponse().getOutputStream()
-			.println("<h2>Can You Read It ?</h2>");
-			context._getResponse().getOutputStream()
-					.println("<h3>Veuillez choisir un manga : </h3>");
-			
-			context._getResponse().getOutputStream()
-			.println("<ul>");
-			
-			ArrayList<Manga> listMangas = instance.getListManga();
-			for(Manga m : listMangas)
-			{		
-				context._getResponse().getOutputStream()
-				.println("<li>");
-					context._getResponse().getOutputStream().println("<a href=\"/CanYouReadIt/manga?nom="+ m.getNom() +"\">" + m.getNom() + "</a>");
-				context._getResponse().getOutputStream()
-				.println("</li>");
-			}
-			
-			context._getResponse().getOutputStream()
-			.println("</ul>");
-			
-			context._getResponse().getOutputStream().println("</body>");
+
+		VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context._getRequest().getRealPath("/").replace("\\", "/")+"WEB-INF/template");
+        ve.init();
+        
+		ArrayList mangaList = new ArrayList();
+		ArrayList<Manga> listMangas = instance.getListManga();
+		for(Manga m : listMangas)
+		{
+			Map map = new HashMap<>();
+			map.put("name", m.getNom());
+			map.put("urlName", m.getNom().replaceAll(" ", "%20"));
+			mangaList.add(map);
+		}
+        
+        VelocityContext mangaContext = new VelocityContext();
+        mangaContext.put("mangaList", mangaList);
+         
+         Template t = ve.getTemplate( "AfficherListMangas.vm" );
+         StringWriter writer = new StringWriter();
+         t.merge( mangaContext, writer );
+         try {
+			context._getResponse().getWriter().write(writer.toString());
 		} catch (IOException e) {
+			System.out.println("Erreur lors de l'écriture sur la Page Web");
 			e.printStackTrace();
 		}
 	}

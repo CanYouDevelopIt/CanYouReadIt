@@ -31,7 +31,7 @@ public class Chapitre {
 					.asString();
 			JSONObject obj = new JSONObject(response.getBody());
 			
-			nom = obj.get("name").toString();
+			//nom = obj.get("name").toString();
 			
 			//JSONObject P = obj.getJSONObject("pageId");
 			//System.out.println(obj.get("pages").toString());

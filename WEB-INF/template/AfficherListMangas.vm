@@ -1,0 +1,15 @@
+#include("header.vm")
+<h2>Can You Read It ?</h2>
+
+		Nous avons en tout 	$mangaList.size() mangas sur ce site.
+		<br/>
+		Choississez un manga : 
+	
+	<ul>
+	#foreach($manga in $mangaList)
+	   <li>
+	   		<a href=/CanYouReadIt/manga?nom=$manga.urlName> $manga.name</a>
+	   </li>
+	#end
+	</ul>
+#include("footer.vm")
