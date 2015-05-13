@@ -1,0 +1,18 @@
+#include("header.vm")
+<h2>Can You Read It ?</h2>
+
+		Il y a en tout 	$chapitreList.size() chapitre.
+		<br/>
+		Choississez un chapitre : 
+	
+	<ul>
+	#foreach($chapitre in $chapitreList)
+	   <li>
+	   		<a href=/CanYouReadIt/chapitre?nom=$chapitre.urlMangaName&chapitre=$chapitre.numero>
+	   			Chapitre $chapitre.numero
+	   		</a>
+	   		 : $chapitre.nomChapitre
+	   </li>
+	#end
+	</ul>
+#include("footer.vm")

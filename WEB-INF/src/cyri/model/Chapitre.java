@@ -11,15 +11,28 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class Chapitre {
 	
-	private String id;
+	private int id;
 	private String nom;
+	private String nomChapitre;
 	private List<String> pages;
 	
 	public Chapitre(String nomManga, String _idChapitre){
-		id = _idChapitre;
+		id = Integer.parseInt(_idChapitre);
 		executer(nomManga);
 	}
 	
+	public Chapitre(String nom_api, int chapterID, String chapterName) {
+		nom = nom_api;
+		id = chapterID;
+		nomChapitre = chapterName;
+		//faire plus tard
+		//executer(nom_api);
+	}
+	
+	public String getNomChapitre(){
+		return nomChapitre;
+	}
+
 	public void executer(String nomManga) {
 		
 		try {

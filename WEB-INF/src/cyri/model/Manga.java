@@ -1,7 +1,9 @@
 package cyri.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +15,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public class Manga {
 
 	private String nom;
+	private String nomURL;
 	private String nom_api;
 	private int nbChapitres;
 	private String image;
@@ -21,6 +24,7 @@ public class Manga {
 	public Manga(String _nom) {
 		nom = _nom;
 		nom_api = _nom.toLowerCase().replace(" ", "-");
+		nomURL = _nom.replaceAll(" ", "%20");
 		chapitres = new ArrayList<Chapitre>();
 		executer();
 	}
@@ -29,21 +33,28 @@ public class Manga {
 		return nom;
 	}
 
+	public String getNomURL() {
+		return nomURL;
+	}
+
 	public int getNbChapitres() {
 		return nbChapitres;
 	}
-	
-	public Chapitre chargerChapitre(String idChapitre){
-		Chapitre c = new Chapitre(nom_api,idChapitre);
-		
-		if(c != null)
+	public List<Chapitre> getChapitres() {
+		return chapitres;
+	}
+
+	public Chapitre chargerChapitre(String idChapitre) {
+		Chapitre c = new Chapitre(nom_api, idChapitre);
+
+		if (c != null)
 			chapitres.add(c);
-		
+
 		return c;
 	}
-	
+
 	public void executer() {
-		
+
 		try {
 			HttpResponse<String> response = Unirest
 					.get("https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/"
@@ -55,11 +66,21 @@ public class Manga {
 
 			String author = (String) obj.get("author").toString();
 			image = (String) obj.get("cover").toString();
-			nbChapitres = obj.getJSONArray("chapters").length();			
-			
+			nbChapitres = obj.getJSONArray("chapters").length();
+			JSONArray allChaptres = obj.getJSONArray("chapters");
+			for (int i = 0; i < allChaptres.length(); i++) {
+				int chapterID = allChaptres.getJSONObject(i)
+						.getInt("chapterId");
+				String chapterName = allChaptres.getJSONObject(i).optString(
+						"name");
+
+				Chapitre c = new Chapitre(nom_api, chapterID, chapterName);
+				chapitres.add(c);
+			}
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
+		System.out.println("*****"+chapitres.size());
 	}
 
 }
