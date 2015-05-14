@@ -80,7 +80,6 @@ public class Manga {
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
-		System.out.println("*****"+chapitres.size());
 	}
 
 }

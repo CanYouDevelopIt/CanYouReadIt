@@ -1,0 +1,14 @@
+#include("header.vm")
+<h2>Can You Read It ?</h2>
+
+		Il y a en tout 	$chapitrePages.size() pages dans ce chapitre.
+		<br/>
+	
+	<ul>
+	#foreach($page in $chapitrePages)
+	   <li>
+				<img src=$page ALT="Problème d'affichage" TITLE="Texte à afficher">
+	   </li>
+	#end
+	</ul>
+#include("footer.vm")
