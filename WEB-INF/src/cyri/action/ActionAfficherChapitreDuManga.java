@@ -48,48 +48,49 @@ public class ActionAfficherChapitreDuManga implements IAction {
 
 	@Override
 	public void proceed(IContext context) {
-		
+
 		DBManga instance = DBManga.getInstance();
-		
+
 		String nomManga = "";
 		String chapitre = "";
-		
-		String [] arrayManga = (String[]) context.getParameter("nom");
-		String [] arrayChapitre = (String[]) context.getParameter("chapitre");
-		
-		if(arrayManga != null){
-			for(String s : arrayManga)
-				nomManga = s;					
+
+		String[] arrayManga = (String[]) context.getParameter("nom");
+		String[] arrayChapitre = (String[]) context.getParameter("chapitre");
+
+		if (arrayManga != null) {
+			for (String s : arrayManga)
+				nomManga = s;
 		}
-		
-		if(arrayChapitre != null){
-			for(String s : arrayChapitre)
-				chapitre = s;					
+
+		if (arrayChapitre != null) {
+			for (String s : arrayChapitre)
+				chapitre = s;
 		}
-		
+
 		Manga m = instance.getManga(nomManga);
 		Chapitre c = m.chargerChapitre(chapitre);
-		
+		c.executer(nomManga);
+
 		VelocityEngine ve = new VelocityEngine();
 		ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context
 				._getRequest().getRealPath("/").replace("\\", "/")
 				+ "WEB-INF/template");
 		ve.init();
-		
+
 		VelocityContext mangaContext = new VelocityContext();
 		mangaContext.put("chapitrePages", c.getPages());
-		
+
 		Template t = ve.getTemplate("AfficherChapitres.vm");
 		StringWriter writer = new StringWriter();
 		t.merge(mangaContext, writer);
-		
+
 		try {
 			context._getResponse().getWriter().write(writer.toString());
 		} catch (IOException e) {
 			System.out.println("Erreur lors de l'écriture de la Page");
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

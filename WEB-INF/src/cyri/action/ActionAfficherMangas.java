@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.velocity.Template;
@@ -23,6 +24,17 @@ public class ActionAfficherMangas implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
+		List<String> listMangaRechercher = null;
+		String nomManga = "";
+		String[] arrayManga = (String[]) context.getParameter("recherche");
+		if (arrayManga != null) {
+			for (String s : arrayManga)
+				nomManga = s;
+		}
+
+		if (!nomManga.isEmpty()) {
+			listMangaRechercher = Manga.searchManga(nomManga);
+		}
 
 		VelocityEngine ve = new VelocityEngine();
 		ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context
@@ -41,6 +53,8 @@ public class ActionAfficherMangas implements IAction {
 
 		VelocityContext mangaContext = new VelocityContext();
 		mangaContext.put("mangaList", mangaList);
+		mangaContext.put("mangaRechercher", nomManga);
+		mangaContext.put("mangaFound", listMangaRechercher);
 
 		Template t = ve.getTemplate("AfficherListMangas.vm");
 		StringWriter writer = new StringWriter();
@@ -48,7 +62,8 @@ public class ActionAfficherMangas implements IAction {
 		try {
 			context._getResponse().getWriter().write(writer.toString());
 		} catch (IOException e) {
-			System.out.println("Erreur lors de l'écriture sur la Page Web Manga");
+			System.out
+					.println("Erreur lors de l'écriture sur la Page Web Manga");
 			e.printStackTrace();
 		}
 	}

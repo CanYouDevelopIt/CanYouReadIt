@@ -40,6 +40,7 @@ public class Manga {
 	public int getNbChapitres() {
 		return nbChapitres;
 	}
+
 	public List<Chapitre> getChapitres() {
 		return chapitres;
 	}
@@ -60,20 +61,22 @@ public class Manga {
 					.get("https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/"
 							+ nom_api + "/")
 					.header("X-Mashape-Key",
-							"pJyLx85TXymshheesKCdA5lbQyWFp1ccbrSjsnBhUdxmrrmmeb")
+							"hTe7fsswLymshgTkf5oE5HtSUjzMp1COvL4jsngB1RpZzaloQL")
 					.header("Accept", "text/plain").asString();
 			JSONObject obj = new JSONObject(response.getBody());
-
+			System.out.println(response.getBody());
 			String author = (String) obj.get("author").toString();
 			image = (String) obj.get("cover").toString();
 			nbChapitres = obj.getJSONArray("chapters").length();
 			JSONArray allChaptres = obj.getJSONArray("chapters");
+
 			for (int i = 0; i < allChaptres.length(); i++) {
 				int chapterID = allChaptres.getJSONObject(i)
 						.getInt("chapterId");
 				String chapterName = allChaptres.getJSONObject(i).optString(
 						"name");
 
+				System.out.println(nom_api + " -- " + chapterName);
 				Chapitre c = new Chapitre(nom_api, chapterID, chapterName);
 				chapitres.add(c);
 			}
@@ -82,4 +85,32 @@ public class Manga {
 		}
 	}
 
+	public static List<String> searchManga(String nomManga) {
+		nomManga = nomManga.toLowerCase().replace(" ", "%20");
+		List<String> mangas = new ArrayList<String>();
+		try {
+			HttpResponse<String> response = Unirest
+					.get("https://doodle-manga-scraper.p.mashape.com/mangareader.net/search?q="
+							+ nomManga)
+					.header("X-Mashape-Key",
+							"hTe7fsswLymshgTkf5oE5HtSUjzMp1COvL4jsngB1RpZzaloQL")
+					.header("Accept", "text/plain").asString();
+
+			if (!response.getBody().startsWith("{")) {
+				JSONArray mangaFound = new JSONArray(response.getBody());
+				for (int i = 0; i < mangaFound.length(); i++) {
+					String mangaName = mangaFound.getJSONObject(i).optString(
+							"mangaId");
+					mangas.add(mangaName);
+				}
+			}
+
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+		if (mangas.size() == 0) {
+			return null;
+		}
+		return mangas;
+	}
 }

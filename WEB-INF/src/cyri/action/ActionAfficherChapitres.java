@@ -32,6 +32,9 @@ public class ActionAfficherChapitres implements IAction {
 		}
 
 		Manga m = instance.getManga(nomManga);
+		if (m == null) {
+			m = new Manga(nomManga);
+		}
 
 		VelocityEngine ve = new VelocityEngine();
 		ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context
@@ -41,7 +44,7 @@ public class ActionAfficherChapitres implements IAction {
 
 		ArrayList chapitreList = new ArrayList();
 		for (int i = m.getNbChapitres(); i > 0; i--) {
-			Chapitre c = m.getChapitres().get(i-1);
+			Chapitre c = m.getChapitres().get(i - 1);
 			Map map = new HashMap();
 			map.put("urlMangaName", m.getNomURL());
 			map.put("numero", i);

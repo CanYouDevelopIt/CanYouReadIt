@@ -1,6 +1,26 @@
 #include("header.vm")
 <h2>Can You Read It ?</h2>
 
+		<form action="/CanYouReadIt/accueil">
+				Rechercher un manga  <input type="text" name="recherche">
+  				<input type="submit" value="Submit"><br>
+		</form>
+		
+		#if(!$mangaFound)
+			#if($mangaRechercher != '')
+				Le manga $mangaRechercher. n'a pas été trouvé. <br/>
+			#end
+		#else
+		<ul>
+			#foreach($manga in $mangaFound)
+	   			<li>
+	   			<a href=/CanYouReadIt/manga?nom=$manga.replace("-", "%20") >$manga.replace("-", " ") </a>	
+	   			</li>
+			#end
+		</ul>
+		#end
+				
+		
 		Nous avons en tout 	$mangaList.size() mangas sur ce site.
 		<br/>
 		Choississez un manga : 
