@@ -68,8 +68,10 @@ public class ActionAfficherChapitreDuManga implements IAction {
 		}
 
 		Manga m = instance.getManga(nomManga);
+		if (m == null) {
+			m = new Manga(nomManga);
+		}
 		Chapitre c = m.chargerChapitre(chapitre);
-		c.executer(nomManga);
 
 		VelocityEngine ve = new VelocityEngine();
 		ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context

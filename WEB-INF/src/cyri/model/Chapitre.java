@@ -26,7 +26,6 @@ public class Chapitre {
 		nom = nom_api;
 		id = chapterID;
 		nomChapitre = chapterName;
-		//executer(nom_api);
 	}
 
 	public String getNomChapitre() {

@@ -64,7 +64,6 @@ public class Manga {
 							"hTe7fsswLymshgTkf5oE5HtSUjzMp1COvL4jsngB1RpZzaloQL")
 					.header("Accept", "text/plain").asString();
 			JSONObject obj = new JSONObject(response.getBody());
-			System.out.println(response.getBody());
 			String author = (String) obj.get("author").toString();
 			image = (String) obj.get("cover").toString();
 			nbChapitres = obj.getJSONArray("chapters").length();
@@ -76,7 +75,6 @@ public class Manga {
 				String chapterName = allChaptres.getJSONObject(i).optString(
 						"name");
 
-				System.out.println(nom_api + " -- " + chapterName);
 				Chapitre c = new Chapitre(nom_api, chapterID, chapterName);
 				chapitres.add(c);
 			}
