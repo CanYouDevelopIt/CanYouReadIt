@@ -51,21 +51,11 @@ public class ActionAfficherChapitreDuManga implements IAction {
 
 		DBManga instance = DBManga.getInstance();
 
-		String nomManga = "";
-		String chapitre = "";
-
 		String[] arrayManga = (String[]) context.getParameter("nom");
 		String[] arrayChapitre = (String[]) context.getParameter("chapitre");
 
-		if (arrayManga != null) {
-			for (String s : arrayManga)
-				nomManga = s;
-		}
-
-		if (arrayChapitre != null) {
-			for (String s : arrayChapitre)
-				chapitre = s;
-		}
+		String nomManga = arrayManga[0];
+		String chapitre = arrayChapitre[0];
 
 		Manga m = instance.getManga(nomManga);
 		if (m == null) {

@@ -28,8 +28,7 @@ public class ActionAfficherMangas implements IAction {
 		String nomManga = "";
 		String[] arrayManga = (String[]) context.getParameter("recherche");
 		if (arrayManga != null) {
-			for (String s : arrayManga)
-				nomManga = s;
+			nomManga = arrayManga[0];
 		}
 
 		if (!nomManga.isEmpty()) {

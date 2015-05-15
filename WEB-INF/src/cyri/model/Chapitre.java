@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -46,16 +47,26 @@ public class Chapitre {
 							"hTe7fsswLymshgTkf5oE5HtSUjzMp1COvL4jsngB1RpZzaloQL")
 					.header("Accept", "text/plain").asString();
 			JSONObject obj = new JSONObject(response.getBody());
-			nom = obj.get("name").toString();
 
-			JSONArray allPages = obj.getJSONArray("pages");
-
-			for (int i = 0; i < allPages.length(); i++) {
-				String pageURL = allPages.getJSONObject(i).optString("url");
-				pages.add(pageURL);
+			checkName(obj);
+			if (obj.toString().startsWith("{\"pages\"")) {
+				JSONArray allPages = obj.getJSONArray("pages");
+				for (int i = 0; i < allPages.length(); i++) {
+					String pageURL = allPages.getJSONObject(i).optString("url");
+					pages.add(pageURL);
+				}
 			}
 		} catch (UnirestException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void checkName(JSONObject obj) {
+		try {
+			nom = obj.get("name").toString();
+		} catch (JSONException e) {
+			nom = "Nom inexistant";
+			System.out.println("Cet anime n'a pas de nom : " + e.getMessage());
 		}
 	}
 

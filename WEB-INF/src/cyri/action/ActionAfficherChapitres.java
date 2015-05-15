@@ -24,12 +24,8 @@ public class ActionAfficherChapitres implements IAction {
 
 		DBManga instance = DBManga.getInstance();
 
-		String nomManga = "";
 		String[] arrayManga = (String[]) context.getParameter("nom");
-		if (arrayManga != null) {
-			for (String s : arrayManga)
-				nomManga = s;
-		}
+		String nomManga = arrayManga[0];
 
 		Manga m = instance.getManga(nomManga);
 		if (m == null) {
