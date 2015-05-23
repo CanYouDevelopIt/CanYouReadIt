@@ -17,6 +17,7 @@ import org.esgi.web.framework.context.interfaces.IContext;
 
 import cyri.model.Manga;
 import cyri.model.DBManga;
+import cyri.renderer.CSSCharger;
 
 public class ActionAfficherMangas implements IAction {
 
@@ -24,6 +25,7 @@ public class ActionAfficherMangas implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
+		CSSCharger instaceCSS = CSSCharger.getInstance();
 		List<String> listMangaRechercher = null;
 		String nomManga = "";
 		String[] arrayManga = (String[]) context.getParameter("recherche");
@@ -54,6 +56,7 @@ public class ActionAfficherMangas implements IAction {
 		mangaContext.put("mangaList", mangaList);
 		mangaContext.put("mangaRechercher", nomManga);
 		mangaContext.put("mangaFound", listMangaRechercher);
+		mangaContext.put("myCSS", instaceCSS.getMyCSS());
 
 		Template t = ve.getTemplate("AfficherListMangas.vm");
 		StringWriter writer = new StringWriter();

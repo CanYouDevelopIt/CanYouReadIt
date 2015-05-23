@@ -66,7 +66,7 @@ public class Manga {
 			JSONObject obj = new JSONObject(response.getBody());
 			String author = (String) obj.get("author").toString();
 			image = (String) obj.get("cover").toString();
-			nbChapitres = obj.getJSONArray("chapters").length();
+			//nbChapitres = obj.getJSONArray("chapters").length();
 			JSONArray allChaptres = obj.getJSONArray("chapters");
 
 			for (int i = 0; i < allChaptres.length(); i++) {
@@ -78,6 +78,7 @@ public class Manga {
 				Chapitre c = new Chapitre(nom_api, chapterID, chapterName);
 				chapitres.add(c);
 			}
+			nbChapitres = chapitres.size();
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}

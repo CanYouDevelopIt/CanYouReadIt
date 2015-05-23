@@ -1,0 +1,22 @@
+<div id="wrapper">
+
+<header id="header">
+	<a href="./accueil" title="CanYouReadIt?" rel="home">
+		<img src="http://horriblesubs.info/images/b/oregairu_banner.jpg" width="1140" height="250" alt="" id="headerimg">
+	</a>
+</header>
+
+
+
+
+<div id="menu">
+		<ul>
+			<li><a href="./accueil">Accueil</a></li>
+			<li><a href="./manga?nom=Shingeki No Kyojin">Shingeki No Kyojin</a></li>
+			<li><a href="./manga?nom=One Piece">One Piece</a></li>
+			<li><a href="./manga?nom=Naruto">Naruto</a></li>
+			<li><a href="./manga?nom=Bleach">Bleach</a></li>
+		</ul>
+</div>
+
+<div id="main">

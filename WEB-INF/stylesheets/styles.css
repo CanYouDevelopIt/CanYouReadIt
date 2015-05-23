@@ -1,0 +1,95 @@
+html {
+	font-family: verdana;
+}
+
+body,input,textarea {
+	color: #505050 ;
+	font-size: 18px;
+	line-height: 20px;
+}
+
+body {
+	padding: 12px 0;
+}
+
+body,h1,h2,h3,h4,h5,h6,input,textarea,.page-title span,.pingback a.url,#site-title,.entry-title
+	{
+	font-family: Baskerville, Georgia, 'Times New Roman', Times, serif;
+}
+
+#wrapper {
+	max-width: 1140px;
+	margin: 0 auto;
+	background: #fff;
+	overflow: hidden;
+}
+
+#header {
+	padding: 30px 0 0 0 !important;
+}
+
+#headerimg {
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 17px;
+}
+#menu{
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+
+#menu ul, #main ul{
+    height: auto;
+    padding: 8px 0px;
+    margin: 0px;
+}
+
+#menu li{ 
+display: inline; 
+padding: 20px; 
+}
+
+#menu a {
+    text-decoration: none;
+	color: #666;
+    padding: 8px 8px 8px 8px;
+}
+
+#menu a:hover {
+    color: #FFF;
+    background-color: #222;
+}
+
+#main {
+  margin-top: 24px;
+  margin-bottom: 18px;
+}
+
+#main, #main input{
+  color: #333;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#main li{ 
+padding: 10px;
+border-bottom: 1px solid #666;
+}
+
+#main a {
+    text-decoration: none;
+	color: #666;
+    padding: 8px 8px 8px 8px;
+}
+
+#main a:hover {
+    color: #000;
+    background-color: #C0C0C0;
+}
+
+#formulaire {
+   margin-left: 25%;
+    margin-right:25%;
+    width: 100%;
+}
+

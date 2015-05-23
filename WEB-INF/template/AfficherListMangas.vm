@@ -1,35 +1,41 @@
-#include("header.vm")
-<h2>Can You Read It ?</h2>
+#include("upperheader.vm")
+<style>
+$myCSS
+</style>
+#include("lowerheader.vm")
 
-		<form action="/CanYouReadIt/accueil">
-				Rechercher un manga  <input type="text" name="recherche">
-  				<input type="submit" value="Submit"><br>
-		</form>
-		
-		#if(!$mangaFound)
-			#if($mangaRechercher != '')
-				Le manga $mangaRechercher. n'a pas été trouvé. <br/>
+#include("menu.vm")
+
+	<div id="formulaire">
+			<form action="/CanYouReadIt/accueil">
+					<input type="text" name="recherche" placeholder="Rechercher un manga">
+	  				<input type="submit" value="Submit">
+			</form>
+	</div>
+			<br>
+			#if(!$mangaFound)
+				#if($mangaRechercher != '')
+					Le manga $mangaRechercher  n'a pas été trouvé. <br/>
+				#end
+			#else
+			<h2>Voici les resultats trouvés : </h2>
+			<ul>
+				#foreach($manga in $mangaFound)
+		   			<li>
+		   			<a href=/CanYouReadIt/manga?nom=$manga.replace("-", "%20") >$manga.replace("-", " ") </a>	
+		   			</li>
+				#end
+			</ul>
 			#end
-		#else
+					
+			<br/>
+			<h2>Choississez un manga :</h2> 
+		
 		<ul>
-			#foreach($manga in $mangaFound)
-	   			<li>
-	   			<a href=/CanYouReadIt/manga?nom=$manga.replace("-", "%20") >$manga.replace("-", " ") </a>	
-	   			</li>
-			#end
-		</ul>
+		#foreach($manga in $mangaList)
+		   <li>
+		   		<a href=/CanYouReadIt/manga?nom=$manga.urlMangaName> $manga.name</a>
+		   </li>
 		#end
-				
-		
-		Nous avons en tout 	$mangaList.size() mangas sur ce site.
-		<br/>
-		Choississez un manga : 
-	
-	<ul>
-	#foreach($manga in $mangaList)
-	   <li>
-	   		<a href=/CanYouReadIt/manga?nom=$manga.urlMangaName> $manga.name</a>
-	   </li>
-	#end
-	</ul>
+		</ul>
 #include("footer.vm")

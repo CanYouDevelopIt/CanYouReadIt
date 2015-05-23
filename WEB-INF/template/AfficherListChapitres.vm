@@ -1,9 +1,12 @@
-#include("header.vm")
-<h2>Can You Read It ?</h2>
+#include("upperheader.vm")
+<style>
+$myCSS
+</style>
+#include("lowerheader.vm")
+#include("menu.vm")
 
-		Il y a en tout 	$chapitreList.size() chapitre.
 		<br/>
-		Choississez un chapitre : 
+		<h2>Choississez un chapitre :</h2> 
 	
 	<ul>
 	#foreach($chapitre in $chapitreList)
@@ -15,4 +18,5 @@
 	   </li>
 	#end
 	</ul>
+
 #include("footer.vm")
