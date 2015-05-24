@@ -27,8 +27,6 @@ public class FrontController extends HttpServlet implements IFrontController {
 	public void init() {
 		dispatcher = new Dispatcher();
 		rewriter = new Rewriter();
-
-		// New rule -- Pattern is a+ -- Related ActionClass is ActionA
 				 
 				 rewriter.addRule(new RewriterRule("POST", URIroot + "accueil", "cyri.action.ActionAfficherMangas"));
 				 
@@ -36,8 +34,10 @@ public class FrontController extends HttpServlet implements IFrontController {
 				 
 				 rewriter.addRule(new RewriterRule("POST", URIroot + "chapitre", "cyri.action.ActionAfficherChapitreDuManga"));
 				 
-				 rewriter.addRule(new RewriterRule("POST", URIroot + "stylesheets/Ace.jpg", "cyri.action.ActionAfficherHeaderImage"));
-				  				 				 
+				 rewriter.addRule(new RewriterRule("POST", URIroot + "stylesheets/[a-zA-Z]*.jpg", "cyri.action.ActionAfficherImage"));
+				 
+				 rewriter.addRule(new RewriterRule("POST", URIroot + "stylesheets/styles.css", "cyri.action.ActionAfficherCSS"));
+ 				 				 
 	}
 
 	@Override

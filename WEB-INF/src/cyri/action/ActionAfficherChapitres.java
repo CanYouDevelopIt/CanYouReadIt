@@ -16,7 +16,6 @@ import org.esgi.web.framework.context.interfaces.IContext;
 import cyri.model.Chapitre;
 import cyri.model.DBManga;
 import cyri.model.Manga;
-import cyri.renderer.CSSCharger;
 
 public class ActionAfficherChapitres implements IAction {
 
@@ -24,7 +23,6 @@ public class ActionAfficherChapitres implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
-		CSSCharger instaceCSS = CSSCharger.getInstance();
 
 		String[] arrayManga = (String[]) context.getParameter("nom");
 		String nomManga = arrayManga[0];
@@ -42,17 +40,18 @@ public class ActionAfficherChapitres implements IAction {
 
 		ArrayList chapitreList = new ArrayList();
 		for (int i = m.getNbChapitres(); i > 0; i--) {
-			Chapitre c = m.getChapitres().get(i - 1);
+			Chapitre c = m.getChapitres().get(i-1);
 			Map map = new HashMap();
 			map.put("urlMangaName", m.getNomURL());
-			map.put("numero", i);
+			map.put("numero", c.getId());
 			map.put("nomChapitre", c.getNomChapitre());
+			map.put("nomChapitreUrl", c.getNomChapitre().replaceAll(" ", "%20"));
 			chapitreList.add(map);
 		}
 
 		VelocityContext chapterContext = new VelocityContext();
 		chapterContext.put("chapitreList", chapitreList);
-		chapterContext.put("myCSS", instaceCSS.getMyCSS());
+		chapterContext.put("nomManga", nomManga);
 
 		Template t = ve.getTemplate("AfficherListChapitres.vm");
 		StringWriter writer = new StringWriter();

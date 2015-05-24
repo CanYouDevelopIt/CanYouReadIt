@@ -10,14 +10,12 @@ import java.util.Map;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.context.AbstractContext;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.esgi.web.framework.action.interfaces.IAction;
 import org.esgi.web.framework.context.interfaces.IContext;
 
 import cyri.model.Manga;
 import cyri.model.DBManga;
-import cyri.renderer.CSSCharger;
 
 public class ActionAfficherMangas implements IAction {
 
@@ -25,7 +23,6 @@ public class ActionAfficherMangas implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
-		CSSCharger instanceCSS = CSSCharger.getInstance();
 		List<String> listMangaRechercher = null;
 		String nomManga = "";
 		String[] arrayManga = (String[]) context.getParameter("recherche");
@@ -56,7 +53,6 @@ public class ActionAfficherMangas implements IAction {
 		mangaContext.put("mangaList", mangaList);
 		mangaContext.put("mangaRechercher", nomManga);
 		mangaContext.put("mangaFound", listMangaRechercher);
-		mangaContext.put("myCSS", instanceCSS.getMyCSS());
 
 		
 		Template t = ve.getTemplate("AfficherListMangas.vm");

@@ -37,6 +37,10 @@ public class Chapitre {
 		return pages;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public void executer(String nomManga) {
 
 		try {

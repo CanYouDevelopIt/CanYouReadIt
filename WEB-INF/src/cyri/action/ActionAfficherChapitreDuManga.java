@@ -13,7 +13,6 @@ import org.esgi.web.framework.context.interfaces.IContext;
 import cyri.model.Chapitre;
 import cyri.model.DBManga;
 import cyri.model.Manga;
-import cyri.renderer.CSSCharger;
 
 public class ActionAfficherChapitreDuManga implements IAction {
 
@@ -51,13 +50,18 @@ public class ActionAfficherChapitreDuManga implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
-		CSSCharger instaceCSS = CSSCharger.getInstance();
 
 		String[] arrayManga = (String[]) context.getParameter("nom");
 		String[] arrayChapitre = (String[]) context.getParameter("chapitre");
+		String[] arrayNomChapitre = (String[]) context.getParameter("nomDuChapitre");
 
 		String nomManga = arrayManga[0];
 		String chapitre = arrayChapitre[0];
+		String nomChapitre = arrayNomChapitre[0];
+
+		if (nomChapitre == null) {
+			nomChapitre = "";
+		}
 
 		Manga m = instance.getManga(nomManga);
 		if (m == null) {
@@ -73,7 +77,9 @@ public class ActionAfficherChapitreDuManga implements IAction {
 
 		VelocityContext mangaContext = new VelocityContext();
 		mangaContext.put("chapitrePages", c.getPages());
-		mangaContext.put("myCSS", instaceCSS.getMyCSS());
+		mangaContext.put("nomManga", nomManga);
+		mangaContext.put("nomChapitre", nomChapitre.replaceAll("%20", " "));
+		mangaContext.put("numeroChapitre", c.getId());
 
 		Template t = ve.getTemplate("AfficherChapitres.vm");
 		StringWriter writer = new StringWriter();

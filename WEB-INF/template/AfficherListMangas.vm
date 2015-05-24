@@ -1,9 +1,4 @@
-#include("upperheader.vm")
-<style>
-$myCSS
-</style>
-#include("lowerheader.vm")
-
+#include("header.vm")
 #include("menu.vm")
 
 	<div id="formulaire">

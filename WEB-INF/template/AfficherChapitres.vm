@@ -1,14 +1,11 @@
-#include("upperheader.vm")
-<style>
-$myCSS
-</style>
-#include("lowerheader.vm")
-
+#include("header.vm")
 #include("menu.vm")
+	
+	<h1> $nomManga : chapitre $numeroChapitre - $nomChapitre </h1>
 	
 	#if(!$chapitrePages || $chapitrePages.size() == 0)
 	<h1>Ce chapitre est vide </h1>
-	<img src="http://24.media.tumblr.com/c7722b5af67aba29482ac1dc837c7224/tumblr_mtukzoLbUy1rr3vglo1_500.gif" alt=""/>
+	<img src="./stylesheets/Error.jpg" alt=""/>
 	#else
 		<ul>
 			#foreach($page in $chapitrePages)

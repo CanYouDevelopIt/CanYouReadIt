@@ -2,16 +2,14 @@ package cyri.action;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
 import org.esgi.web.framework.action.interfaces.IAction;
 import org.esgi.web.framework.context.interfaces.IContext;
 
-public class ActionAfficherHeaderImage implements IAction {
+public class ActionAfficherImage implements IAction {
 
 	@Override
 	public int setPriority(int priority) {
@@ -45,12 +43,13 @@ public class ActionAfficherHeaderImage implements IAction {
 
 	@Override
 	public void proceed(IContext context) {
-		System.out.println("Je suis quelquepart içi");
+		// ceci retourne un string commençant par "/"
+		String url = context._getRequest().getRequestURI();
+		url = url.substring(url.lastIndexOf("/"));
 		File ressource = new File(this.getClass()
-				.getResource("/../stylesheets/Ace.jpg").getFile());
+				.getResource("/../stylesheets"+url).getFile());
 
 		if (ressource.exists()) {
-			System.out.println("Image exists");
 			BufferedImage bi = null;
 			OutputStream out;
 			try {
@@ -58,12 +57,9 @@ public class ActionAfficherHeaderImage implements IAction {
 				out = context._getResponse().getOutputStream();
 				ImageIO.write(bi, "jpg", out);
 			} catch (Exception e) {
-				System.out.println("Error printing Image");
+				System.out.println("Error printing Error Image");
 			}
 
-		} else {
-			System.out.println("Image doesn't exists");
 		}
 	}
-
 }
