@@ -6,12 +6,17 @@ $myCSS
 
 #include("menu.vm")
 	
-	<ul>
-		#foreach($page in $chapitrePages)
-		   <li>
-					<img src=$page ALT="Problème d'affichage">
-		   </li>
-		#end
-	</ul>
+	#if(!$chapitrePages || $chapitrePages.size() == 0)
+	<h1>Ce chapitre est vide </h1>
+	<img src="http://24.media.tumblr.com/c7722b5af67aba29482ac1dc837c7224/tumblr_mtukzoLbUy1rr3vglo1_500.gif" alt=""/>
+	#else
+		<ul>
+			#foreach($page in $chapitrePages)
+			   <li>
+						<img src=$page ALT="Problème d'affichage">
+			   </li>
+			#end
+		</ul>
+	#end
 	
 #include("footer.vm")
