@@ -25,7 +25,7 @@ public class ActionAfficherMangas implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
-		CSSCharger instaceCSS = CSSCharger.getInstance();
+		CSSCharger instanceCSS = CSSCharger.getInstance();
 		List<String> listMangaRechercher = null;
 		String nomManga = "";
 		String[] arrayManga = (String[]) context.getParameter("recherche");
@@ -56,8 +56,9 @@ public class ActionAfficherMangas implements IAction {
 		mangaContext.put("mangaList", mangaList);
 		mangaContext.put("mangaRechercher", nomManga);
 		mangaContext.put("mangaFound", listMangaRechercher);
-		mangaContext.put("myCSS", instaceCSS.getMyCSS());
+		mangaContext.put("myCSS", instanceCSS.getMyCSS());
 
+		
 		Template t = ve.getTemplate("AfficherListMangas.vm");
 		StringWriter writer = new StringWriter();
 		t.merge(mangaContext, writer);
