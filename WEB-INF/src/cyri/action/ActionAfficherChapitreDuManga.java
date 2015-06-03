@@ -1,7 +1,9 @@
 package cyri.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Properties;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -70,10 +72,10 @@ public class ActionAfficherChapitreDuManga implements IAction {
 		Chapitre c = m.chargerChapitre(chapitre);
 
 		VelocityEngine ve = new VelocityEngine();
-		ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context
-				._getRequest().getRealPath("/").replace("\\", "/")
-				+ "WEB-INF/template");
-		ve.init();
+		Properties p = new Properties();
+		 String absolutePath=new File(Thread.currentThread().getContextClassLoader().getResource("").getFile()).getParentFile().getParentFile().getPath();
+		 p.put("file.resource.loader.path", absolutePath+"/WEB-INF/template");
+		ve.init(p);
 
 		VelocityContext mangaContext = new VelocityContext();
 		mangaContext.put("chapitrePages", c.getPages());

@@ -1,11 +1,13 @@
 package cyri.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -35,10 +37,10 @@ public class ActionAfficherMangas implements IAction {
 		}
 
 		VelocityEngine ve = new VelocityEngine();
-		ve.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, context
-				._getRequest().getRealPath("/").replace("\\", "/")
-				+ "WEB-INF/template");
-		ve.init();
+		Properties p = new Properties();
+		 String absolutePath=new File(Thread.currentThread().getContextClassLoader().getResource("").getFile()).getParentFile().getParentFile().getPath();
+		 p.put("file.resource.loader.path", absolutePath+"/WEB-INF/template");
+		ve.init(p);
 
 		ArrayList<Map<String, String>> mangaList = new ArrayList<Map<String, String>>();
 		ArrayList<Manga> listMangas = instance.getListManga();
@@ -54,7 +56,6 @@ public class ActionAfficherMangas implements IAction {
 		mangaContext.put("mangaRechercher", nomManga);
 		mangaContext.put("mangaFound", listMangaRechercher);
 
-		
 		Template t = ve.getTemplate("AfficherListMangas.vm");
 		StringWriter writer = new StringWriter();
 		t.merge(mangaContext, writer);
