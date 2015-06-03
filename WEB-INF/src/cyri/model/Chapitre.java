@@ -70,7 +70,6 @@ public class Chapitre {
 			nom = obj.get("name").toString();
 		} catch (JSONException e) {
 			nom = "Nom inexistant";
-			System.out.println("Cet anime n'a pas de nom : " + e.getMessage());
 		}
 	}
 

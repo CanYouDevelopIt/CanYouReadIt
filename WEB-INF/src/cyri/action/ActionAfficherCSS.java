@@ -41,12 +41,10 @@ public class ActionAfficherCSS implements IAction {
 
 	@Override
 	public void proceed(IContext context) {
-		System.out.println("Je suis dans l'action CSS");
 		File ressource = new File(this.getClass()
 				.getResource("/../stylesheets/styles.css").getFile());
 
 		if (ressource.exists()) {
-			System.out.println("exists");
 			Scanner scanner = null;
 			try {
 				scanner = new Scanner(ressource);

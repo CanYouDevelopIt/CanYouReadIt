@@ -12,11 +12,9 @@ import java.util.Properties;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeConstants;
 import org.esgi.web.framework.action.interfaces.IAction;
 import org.esgi.web.framework.context.interfaces.IContext;
 
-import cyri.database.MangaData;
 import cyri.model.Manga;
 import cyri.model.DBManga;
 
@@ -67,7 +65,6 @@ public class ActionAfficherMangas implements IAction {
 					.println("Erreur lors de l'écriture sur la Page Web Manga");
 			e.printStackTrace();
 		}
-		MangaData mangaData = new MangaData();
 	}
 
 	@Override
