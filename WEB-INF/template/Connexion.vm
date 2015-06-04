@@ -1,0 +1,11 @@
+#include("header.vm")
+#include("menu.vm")
+
+	<div id="formulaire">
+			<form action="/CanYouReadIt/connexion">
+					<input type="text" name="login" placeholder="Login">
+					<input type="password" name="password" placeholder="Password">
+	  				<input type="submit" value="Submit">
+			</form>
+	</div>
+#include("footer.vm")

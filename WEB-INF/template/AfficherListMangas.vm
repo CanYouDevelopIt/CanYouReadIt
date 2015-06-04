@@ -17,7 +17,10 @@
 			<ul>
 				#foreach($manga in $mangaFound)
 		   			<li>
-		   			<a href=/CanYouReadIt/manga?nom=$manga.replace("-", "%20") >$manga.replace("-", " ") </a>	
+		   			<a href=/CanYouReadIt/manga?nom=$manga.replace("-", "%20") >$manga.replace("-", " ") </a>
+		   			#if($admin)
+						<a href =/CanYouReadIt/accueil?add=$manga > <img src="./stylesheets/add.jpg" alt="Add"> </a>
+					#end
 		   			</li>
 				#end
 			</ul>
@@ -29,7 +32,10 @@
 		<ul>
 		#foreach($manga in $mangaList)
 		   <li>
-		   		<a href=/CanYouReadIt/manga?nom=$manga.urlMangaName> $manga.name</a>
+		   		<a href=/CanYouReadIt/manga?nom=$manga.urlMangaName> $manga.name</a> 
+		   		#if($admin)
+		   			<a href =/CanYouReadIt/accueil?delete=$manga.urlMangaName ><img src="./stylesheets/del.jpg" alt="Delete"> </a>
+		   		#end
 		   </li>
 		#end
 		</ul>

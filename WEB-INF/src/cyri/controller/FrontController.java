@@ -30,6 +30,8 @@ public class FrontController extends HttpServlet implements IFrontController {
 				 
 				 rewriter.addRule(new RewriterRule("POST", URIroot + "accueil", "cyri.action.ActionAfficherMangas"));
 				 
+				 rewriter.addRule(new RewriterRule("POST", URIroot + "connexion", "cyri.action.ActionConnexion"));
+				 
 				 rewriter.addRule(new RewriterRule("POST", URIroot + "manga", "cyri.action.ActionAfficherChapitres"));
 				 
 				 rewriter.addRule(new RewriterRule("POST", URIroot + "chapitre", "cyri.action.ActionAfficherChapitreDuManga"));

@@ -8,13 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import cyri.model.DBManga;
 import cyri.model.Manga;
 
 public class MangaData {
 	private static Logger log = Logger.getLogger(MangaData.class.getName());
 	private String url = "jdbc:mysql://localhost/cyri";
-	private String login = "root";
-	private String password = "root";
+	private String login = "cyri";
+	private String password = "cyri";
 	private Connection connection = null;
 	private Statement statement = null;
 	private ResultSet rs = null;
@@ -23,21 +24,95 @@ public class MangaData {
 	private ArrayList<Manga> mangaList = new ArrayList<Manga>();
 
 	public MangaData() {
-		try {
-			initData();
-		} catch (SQLException sqlError) {
-			log.info("Erreur lors de la récuperation des manga dans la base de donées : "
-					+ sqlError.getMessage());
-		}
+		initData();
 	}
 
 	public ArrayList<Manga> getMangaList() {
 		return mangaList;
 	}
 
-	private void initData() throws SQLException {
+	public boolean estAdmin(String pseudo, String pwd) {
+
+		DBManga dbm = DBManga.getInstance();
+		try {
+			connection = DriverManager.getConnection(url, login, password);
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from admin where login = '"+pseudo+"' and password = '"+pwd+"'");
+			dbm.setAdmin(rs.next());
+			rs.close();
+			statement.close();
+			connection.close();			
+		}
+		catch (SQLException e) {
+			log.info(e.getMessage());
+		}
+
+		return dbm.getAdmin();
+	}
+
+	public boolean existe(String nom) {
+		boolean trouve = false;
+		try {
+			connection = DriverManager.getConnection(url, login, password);
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from manga where nom = '"+nom+"'");
+			trouve = rs.next();
+			rs.close();
+			statement.close();
+			connection.close();			
+		}
+		catch (SQLException e) {
+			log.info(e.getMessage());
+		}
+		return trouve;
+	}
+
+	public void add(String nom){
+		if(!existe(nom)) {
+			DBManga dbm = DBManga.getInstance();
+			try {
+				connection = DriverManager.getConnection(url, login, password);
+				statement = connection.createStatement();
+				statement.executeUpdate("insert into manga(nom) values ('"+nom+"')");
+				mangaList.add(new Manga(nom));
+				statement.close();
+				connection.close();
+			}
+			catch (SQLException e) {
+				log.info(e.getMessage());
+			}
+		}
+	}
+
+	public void delete(String nom) {
+		if(existe(nom)) {
+			try {
+				connection = DriverManager.getConnection(url, login, password);
+				statement = connection.createStatement();
+				statement.executeUpdate("delete from manga where nom ='"+nom+"'");
+				for(Manga manga : mangaList) {
+					System.out.println(manga.getNom());
+					System.out.println(nom);
+					if(manga.getNom().equals(nom)) {
+						mangaList.remove(manga);
+						break;
+					}
+				}
+				statement.close();
+				connection.close();
+			}
+			catch (SQLException e) {
+				log.info(e.getMessage());
+			}
+		}
+	}
+
+
+
+	private void initData(){
 		initJDBCDriver();
 		log.info("Récupération des nom de mangas dans la base de données.");
+		mangaList = new ArrayList<Manga>();
 		try {
 			connection = DriverManager.getConnection(url, login, password);
 			statement = connection.createStatement();
@@ -46,16 +121,12 @@ public class MangaData {
 				String nom = rs.getString("nom");
 				mangaList.add(new Manga(nom));
 			}
-		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (statement != null) {
-				statement.close();
-			}
-			if (connection != null) {
-				connection.close();
-			}
+			rs.close();
+			statement.close();
+			connection.close();			
+		}
+		catch (SQLException e) {
+			log.info(e.getMessage());
 		}
 	}
 

@@ -24,12 +24,26 @@ public class ActionAfficherMangas implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
+
 		List<String> listMangaRechercher = null;
 		String nomManga = "";
 		String[] arrayManga = (String[]) context.getParameter("recherche");
+		boolean existe = false;
 		if (arrayManga != null) {
 			nomManga = arrayManga[0];
 		}
+		
+		
+		String[] arrayDelete = (String[]) context.getParameter("delete");
+		if (arrayDelete != null) {
+			instance.getMangaData().delete(arrayDelete[0]);
+		}
+		
+		String[] arrayAdd = (String[]) context.getParameter("add");
+		if (arrayAdd != null) {
+			instance.getMangaData().add(arrayAdd[0]);
+		}
+		
 
 		if (!nomManga.isEmpty()) {
 			listMangaRechercher = Manga.searchManga(nomManga);
@@ -54,6 +68,7 @@ public class ActionAfficherMangas implements IAction {
 		mangaContext.put("mangaList", mangaList);
 		mangaContext.put("mangaRechercher", nomManga);
 		mangaContext.put("mangaFound", listMangaRechercher);
+		mangaContext.put("admin", instance.getAdmin());
 
 		Template t = ve.getTemplate("AfficherListMangas.vm");
 		StringWriter writer = new StringWriter();

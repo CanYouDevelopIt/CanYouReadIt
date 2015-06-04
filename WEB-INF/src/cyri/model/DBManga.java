@@ -8,11 +8,20 @@ public class DBManga {
 
 	public ArrayList<Manga> listManga = new ArrayList<Manga>();
 	private static DBManga INSTANCE;
-	MangaData mangaData;
+	private boolean admin = false;
+	private MangaData mangaData;
 
 	private DBManga() {
 		mangaData = new MangaData();
 		listManga = mangaData.getMangaList();
+	}
+	
+	public void setAdmin(boolean etat){
+		admin = etat;
+	}
+	
+	public boolean getAdmin(){
+		return admin;
 	}
 
 	public ArrayList<Manga> getListManga() {
@@ -25,6 +34,10 @@ public class DBManga {
 				return m;
 		}
 		return null;
+	}
+	
+	public MangaData getMangaData() {
+		return mangaData;
 	}
 
 	public static DBManga getInstance() {
