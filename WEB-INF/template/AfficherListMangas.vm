@@ -1,5 +1,9 @@
 #include("header.vm")
-#include("menu.vm")
+#if($admin)
+	#include("menuAdmin.vm")
+#else
+	#include("menu.vm")
+#end
 
 	<div id="formulaire">
 			<form action="/CanYouReadIt/accueil">
@@ -27,7 +31,7 @@
 			#end
 					
 			<br/>
-			<h2>Choississez un manga :</h2> 
+			<h2>Mangas favoris :</h2> 
 		
 		<ul>
 		#foreach($manga in $mangaList)

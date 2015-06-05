@@ -64,6 +64,19 @@ public class ActionConnexion implements IAction {
 			}
 		}
 		
+		String[] arrayDeco = (String[]) context.getParameter("deconnexion");
+		if(arrayDeco != null) {
+			if(arrayDeco[0].equals("true")){
+				dbm.setAdmin(false);
+				try {
+					context._getResponse().sendRedirect("./accueil");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		VelocityEngine ve = new VelocityEngine();
 		Properties p = new Properties();
 		 String absolutePath=new File(Thread.currentThread().getContextClassLoader().getResource("").getFile()).getParentFile().getParentFile().getPath();

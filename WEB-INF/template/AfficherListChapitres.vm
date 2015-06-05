@@ -1,5 +1,9 @@
 #include("header.vm")
-#include("menu.vm")
+#if($admin)
+	#include("menuAdmin.vm")
+#else
+	#include("menu.vm")
+#end
 
 <h1>$nomManga</h1>
 <h2>Choississez un chapitre à lire :</h2> 

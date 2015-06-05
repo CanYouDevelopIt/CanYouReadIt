@@ -1,5 +1,9 @@
 #include("header.vm")
-#include("menu.vm")
+#if($admin)
+	#include("menuAdmin.vm")
+#else
+	#include("menu.vm")
+#end
 
 	<div id="formulaire">
 			<form action="/CanYouReadIt/connexion">

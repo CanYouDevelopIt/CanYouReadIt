@@ -24,6 +24,7 @@ public class ActionAfficherMangas implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
+		boolean admin = instance.getAdmin();
 
 		List<String> listMangaRechercher = null;
 		String nomManga = "";
@@ -68,7 +69,7 @@ public class ActionAfficherMangas implements IAction {
 		mangaContext.put("mangaList", mangaList);
 		mangaContext.put("mangaRechercher", nomManga);
 		mangaContext.put("mangaFound", listMangaRechercher);
-		mangaContext.put("admin", instance.getAdmin());
+		mangaContext.put("admin", admin);
 
 		Template t = ve.getTemplate("AfficherListMangas.vm");
 		StringWriter writer = new StringWriter();

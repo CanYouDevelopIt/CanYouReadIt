@@ -52,6 +52,7 @@ public class ActionAfficherChapitreDuManga implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
+		boolean admin = instance.getAdmin();
 
 		String[] arrayManga = (String[]) context.getParameter("nom");
 		String[] arrayChapitre = (String[]) context.getParameter("chapitre");
@@ -82,6 +83,7 @@ public class ActionAfficherChapitreDuManga implements IAction {
 		mangaContext.put("nomManga", nomManga);
 		mangaContext.put("nomChapitre", nomChapitre.replaceAll("%20", " "));
 		mangaContext.put("numeroChapitre", c.getId());
+		mangaContext.put("admin", admin);
 
 		Template t = ve.getTemplate("AfficherChapitres.vm");
 		StringWriter writer = new StringWriter();

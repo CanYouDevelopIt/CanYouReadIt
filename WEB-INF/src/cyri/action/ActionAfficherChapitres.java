@@ -25,6 +25,7 @@ public class ActionAfficherChapitres implements IAction {
 	public void proceed(IContext context) {
 
 		DBManga instance = DBManga.getInstance();
+		boolean admin = instance.getAdmin();
 
 		String[] arrayManga = (String[]) context.getParameter("nom");
 		String nomManga = arrayManga[0];
@@ -54,6 +55,7 @@ public class ActionAfficherChapitres implements IAction {
 		VelocityContext chapterContext = new VelocityContext();
 		chapterContext.put("chapitreList", chapitreList);
 		chapterContext.put("nomManga", nomManga);
+		chapterContext.put("admin", admin);
 
 		Template t = ve.getTemplate("AfficherListChapitres.vm");
 		StringWriter writer = new StringWriter();

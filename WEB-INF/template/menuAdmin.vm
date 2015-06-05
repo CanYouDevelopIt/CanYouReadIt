@@ -15,7 +15,7 @@
 			<li><a href="./manga?nom=Shingeki No Kyojin">Shingeki No Kyojin</a></li>
 			<li><a href="./manga?nom=One Piece">One Piece</a></li>
 			<li><a href="./manga?nom=Naruto">Naruto</a></li>
-			<li><a href="./connexion">Log in</a></li>
+			<li><a href="./connexion?deconnexion=true">Log out</a></li>
 		</ul>
 </div>
 
